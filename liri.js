@@ -12,22 +12,23 @@ if (process.argv[2] === "my-tweets") {
   //entering params for our GET call
   var params = {
     screen_name: 'goonsncsu',
-    count: 1
+    count: 20
   };
 
   //placing the GET call to the twitter API
   client.get('statuses/user_timeline', params, function (error, tweets, response) {
     if (!error) {
-      console.log(JSON.stringify(tweets[0].created_at));
+      for (var i = 0; i < tweets.length; i++) {
+        console.log("Tweet: " + tweets[i].text + ", Date: " + tweets[i].created_at);
+      }
     } else {
       console.log(error);
     }
   });
 }
-//need to be able to pull out the tweet text as well as the created at date...currently struggling here.
 
 //=============================
-//Spotfiy Portion of LIRI
+//Spotify Portion of LIRI
 //=============================
 var Spotify = require('node-spotify-api');
 
@@ -35,17 +36,14 @@ if (process.argv[2] === "spotify-this-song") {
   var spotify = new Spotify(keys.spotify);
 
 
-  spotify.search({ type: 'track', query: process.argv[3] , limit: 1 }, function (err, data) {
+  spotify.search({ type: 'track', query: process.argv[3], limit: 1 }, function (err, data) {
     if (err) {
-      return console.log('Error occurred: ' + err);
+        console.log('Error occurred: ' + err);
+    } else {
+        console.log("Artist: " + data.tracks.items[0].artists[0].name);
+        console.log("Track: " + data.tracks.items[0].name);
+        console.log("Preview: " + data.tracks.items[0].preview_url);
+        console.log("Album: " + data.tracks.items[0].album.name);
     }
-    console.log(JSON.stringify(data));
   });
-// } else {
-//   spotify.search({ type: 'track', query: "The Sign"}, function (err, data) {
-//     if (err) {
-//       return console.log('Error occurred: ' + err);
-//     }
-//     console.log(JSON.stringify(data));
-//   });
 }
