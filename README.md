@@ -1,7 +1,7 @@
 # liri-node-app
 Twitter, Spotify, and OMDB request project
 
-This application will take several commands and reference different nodes/APIs based on the input.
+This application will take several commands via the terminal and reference different nodes/APIs based on the input.
 
 For Twitter, simply enter "node liri.js my-tweets" to receive a list of the 20 most recent tweets on my timeline (all beer).
 
