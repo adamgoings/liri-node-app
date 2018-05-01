@@ -82,6 +82,18 @@ if (process.argv[2] === "movie-this" && process.argv[3]) {
     console.log("Plot: " + JSON.parse(body).Plot);
     console.log("Actors: " + JSON.parse(body).Actors);
   });
+} else if (process.argv[2] === "movie-this") {
+  request('http://www.omdbapi.com/?apikey=trilogy&t="Mr. Nobody"', function (error, response, body) {
+    //console.log(error);
+    console.log("Title: " + JSON.parse(body).Title);
+    console.log("Year: " + JSON.parse(body).Year);
+    console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
+    console.log("Rotten Tomatoes Rating: " + JSON.parse(body).Ratings[1].Value);
+    console.log("Country: " + JSON.parse(body).Country);
+    console.log("Language: " + JSON.parse(body).Language);
+    console.log("Plot: " + JSON.parse(body).Plot);
+    console.log("Actors: " + JSON.parse(body).Actors);
+  });
 }
 
 
