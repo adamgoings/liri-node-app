@@ -34,7 +34,7 @@ if (process.argv[2] === "my-tweets") {
 //pulling in spotify npm and keys
 var Spotify = require('node-spotify-api');
 
-if (process.argv[2] === "spotify-this-song") {
+if (process.argv[2] === "spotify-this-song" && process.argv[3]) {
   var spotify = new Spotify(keys.spotify);
 
   //placing the GET call to the Spotify API
@@ -48,16 +48,31 @@ if (process.argv[2] === "spotify-this-song") {
       console.log("Album: " + data.tracks.items[0].album.name);
     }
   });
+} else if (process.argv[2] === "spotify-this-song") {
+  var spotify = new Spotify(keys.spotify);
+
+  //placing the GET call to the Spotify API
+  spotify.search({ type: 'track', query: "Ace of Base - The Sign", limit: 1 }, function (err, data) {
+    if (err) {
+      console.log('Error occurred: ' + err);
+    } else {
+      console.log("Artist: " + data.tracks.items[0].artists[0].name);
+      console.log("Track: " + data.tracks.items[0].name);
+      console.log("Preview: " + data.tracks.items[0].preview_url);
+      console.log("Album: " + data.tracks.items[0].album.name);
+    }
+  });
 }
+
 
 //=============================
 //OMDB Portion of LIRI
 //=============================
 var request = require('request');
 
-if (process.argv[2] === "movie-this") {
+if (process.argv[2] === "movie-this" && process.argv[3]) {
   request('http://www.omdbapi.com/?apikey=trilogy&t=' + process.argv[3], function (error, response, body) {
-    console.log(error);
+    //console.log(error);
     console.log("Title: " + JSON.parse(body).Title);
     console.log("Year: " + JSON.parse(body).Year);
     console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
